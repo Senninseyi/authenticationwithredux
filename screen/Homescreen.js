@@ -1,18 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import {CustomButton} from "../component/button/custombutton";
 
 const Homescreen = ({ navigation }) => {
   console.log(navigation);
 
   return (
     <View style={styles.screen}>
-      <Text style={{ color: "white", fontSize: 40, fontWeight: "bold" }}>
-        Homescreen
-      </Text>
-      <Button
-        title="Goto profile"
+      <CustomButton
         onPress={() => navigation.navigate("Profile")}
-      />
+      >
+          Go to profile
+      </CustomButton>
     </View>
   );
 };
@@ -20,9 +19,9 @@ const Homescreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
+      gap: 10,
     width: "100%",
   },
 });
