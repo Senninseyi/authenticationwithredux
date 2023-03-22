@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { TouchableWithoutFeedback } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useReduxDevToolsExtension } from '@react-navigation/devtools';
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 
@@ -50,6 +51,10 @@ function BottomNavigation({ navigation, route }) {
 export function AppNavigation() {
   const [userToken, setUserToken] = useState(null);
 
+  const navigationRef = useNavigationContainerRef();
+
+  useReduxDevToolsExtension(navigationRef)
+
   const getUser = async () => {
     let user = await SecureStore.getItemAsync("user");
 
@@ -69,7 +74,7 @@ export function AppNavigation() {
 
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         initialRouteName="Root"
         screenOptions={{
