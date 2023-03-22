@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { TouchableWithoutFeedback } from "react-native";
-import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useReduxDevToolsExtension } from '@react-navigation/devtools';
+import { useReduxDevToolsExtension } from "@react-navigation/devtools";
 import { Ionicons } from "@expo/vector-icons";
 import * as SecureStore from "expo-secure-store";
 
 import { Homescreen } from "../../screen/Homescreen";
 import { Loginscreen } from "../../screen/Loginscreen";
 import { Profilescreen } from "../../screen/Profilescreen";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/reducer/auth";
 
 const Tab = createBottomTabNavigator();
 
-function BottomNavigation({ navigation, route }) {
-  const Signout = async () => {
-    let user = await SecureStore.deleteItemAsync("user");
-    console.log(user);
-  };
+function BottomNavigation() {
+  const dispatch = useDispatch();
 
   return (
     <Tab.Navigator
@@ -35,7 +37,7 @@ function BottomNavigation({ navigation, route }) {
         tabBarActiveTintColor: "red",
         tabBarInactiveTintColor: "black",
         headerRight: () => (
-          <TouchableWithoutFeedback onPress={() => Signout()}>
+          <TouchableWithoutFeedback onPress={() => dispatch(logoutUser())}>
             <Ionicons name="log-out" size={20} color="red" />
           </TouchableWithoutFeedback>
         ),
@@ -49,28 +51,11 @@ function BottomNavigation({ navigation, route }) {
 }
 
 export function AppNavigation() {
-  const [userToken, setUserToken] = useState(null);
+  const { user } = useSelector((state) => ({
+    user: state.persisted.user,
+  }));
 
   const navigationRef = useNavigationContainerRef();
-
-  useReduxDevToolsExtension(navigationRef)
-
-  const getUser = async () => {
-    let user = await SecureStore.getItemAsync("user");
-
-    if (user) {
-      console.log("🔐 Here's your value 🔐 \n" + user);
-      setUserToken(user);
-    } else {
-      console.log("No values stored under that key.");
-    }
-  };
-
-  console.log(typeof userToken);
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const Stack = createNativeStackNavigator();
   return (
@@ -82,7 +67,7 @@ export function AppNavigation() {
           gestureEnabled: false,
         }}
       >
-        {!userToken == "" ? (
+        {!user?.username == "" ? (
           <>
             <Stack.Screen name="Root" component={BottomNavigation} />
           </>
