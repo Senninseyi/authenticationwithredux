@@ -13,6 +13,8 @@ import { globalstyles } from "../style";
 import { CustomButton } from "../component/button/custombutton";
 import { DismissKeyboard } from "../hoc/keyboardDismiss";
 import { save } from "../hoc/secureStore";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/reducer/auth";
 
 function SplashScreen() {
   return (
@@ -30,16 +32,14 @@ function SplashScreen() {
   );
 }
 
-const Loginscreen = ({ navigation, route }) => {
+const Loginscreen = ({ navigation }) => {
   const [formData, setFormdata] = useState({
     username: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
 
-  if (loading) {
-    return <SplashScreen />;
-  }
+  const dispatch = useDispatch();
 
   const Signin = () => {
     setLoading(true);
@@ -50,12 +50,17 @@ const Loginscreen = ({ navigation, route }) => {
         password: formData.password,
       });
       save("user", formData.username);
+      dispatch(loginUser(formData));
       setLoading(false);
       console.log("Data", formData);
     } catch (error) {
       Alert.alert("Error", error);
     }
   };
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return (
     <DismissKeyboard>
