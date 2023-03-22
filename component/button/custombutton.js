@@ -1,13 +1,14 @@
 import React from 'react'
-import {StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native"
+import {Dimensions, StyleSheet, Text, TouchableNativeFeedback, View} from "react-native"
 
-export const CustomButton = ({children, onPress}) => {
+const {height, width} = Dimensions.get("window")
+export const CustomButton = ({children, onPress, customStyle}) => {
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
-            <View style={styles.button}>
+        <TouchableNativeFeedback onPress={onPress}>
+            <View style={[styles.button, customStyle]}>
                 <Text style={styles.buttonText}>{children}</Text>
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableNativeFeedback>
     )
 }
 
@@ -16,7 +17,14 @@ const styles = StyleSheet.create({
         backgroundColor: "red",
         paddingHorizontal: 20,
         paddingVertical: 15,
-        borderRadius: 15,
+        borderRadius: height / 70,
+        elevation: 5,
+        shadowColor: "#000000",
+        shadowOpacity: 0.25,
+        shadowOffset: {
+          height: 3.0,
+          width: 0,
+        },
     },
     buttonText: {
         color: "white"

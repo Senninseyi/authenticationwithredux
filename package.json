@@ -14,15 +14,18 @@
     "@react-navigation/drawer": "6.6.2",
     "@react-navigation/native": "6.1.6",
     "@react-navigation/native-stack": "6.9.12",
+    "@react-navigation/devtools": "6.0.18",
     "expo": "~48.0.6",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.3",
+    "react-native": "0.71.4",
     "react-native-reanimated": "~2.14.4",
     "react-native-screens": "^3.20.0",
     "react-redux": "8.0.5",
-    "redux": "4.2.1",
-    "redux-persist": "6.0.0"
+    "@reduxjs/toolkit": "1.9.3",
+    "redux-persist": "6.0.0",
+    "expo-updates": "~0.16.3",
+    "expo-secure-store": "~12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
