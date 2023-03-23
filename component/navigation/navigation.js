@@ -15,6 +15,7 @@ import { Loginscreen } from "../../screen/Loginscreen";
 import { Profilescreen } from "../../screen/Profilescreen";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/reducer/auth";
+import { primarycolor } from "../../constants/constants";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,11 +35,11 @@ function BottomNavigation() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "red",
+        tabBarActiveTintColor: primarycolor,
         tabBarInactiveTintColor: "black",
         headerRight: () => (
           <TouchableWithoutFeedback onPress={() => dispatch(logoutUser())}>
-            <Ionicons name="log-out" size={20} color="red" />
+            <Ionicons name="log-out" size={20} color={primarycolor} />
           </TouchableWithoutFeedback>
         ),
         headerRightContainerStyle: { paddingRight: 25 },
