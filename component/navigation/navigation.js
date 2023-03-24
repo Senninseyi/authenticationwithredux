@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { TouchableWithoutFeedback } from "react-native";
 import {
   NavigationContainer,
