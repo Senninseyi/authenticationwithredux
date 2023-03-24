@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
   Alert,
+  Dimensions,
+  Image,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -9,28 +10,15 @@ import {
   TouchableNativeFeedback,
   View,
 } from "react-native";
+import { useDispatch } from "react-redux";
+
 import { globalstyles } from "../style";
 import { CustomButton } from "../component/button/custombutton";
 import { DismissKeyboard } from "../hoc/keyboardDismiss";
 import { save } from "../hoc/secureStore";
-import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/reducer/auth";
-
-function SplashScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 20,
-      }}
-    >
-      <Text>Getting token...</Text>
-      <ActivityIndicator size="large" color={"red"} />
-    </View>
-  );
-}
+import { primarycolor } from "../constants/constants";
+import SplashScreen from "../hoc/splashscreen";
 
 const Loginscreen = ({ navigation }) => {
   const [formData, setFormdata] = useState({
@@ -65,15 +53,28 @@ const Loginscreen = ({ navigation }) => {
   return (
     <DismissKeyboard>
       <View style={styles.screen}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require("../assets/icon.png")}
+            style={{
+              width: 150,
+              height: 150,
+            }}
+          />
+          <Text style={styles.title}>Redux Expo</Text>
+        </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.textViewcontainer}
         >
           <TextInput
-            placeholder="username"
-            selectionColor="red"
+            placeholder="email"
+            selectionColor={primarycolor}
+            cursorColor={primarycolor}
             style={globalstyles.textInput}
             value={formData.username}
+            keyboardType="email-address"
+            keyboardAppearance="default"
             onChangeText={(username) => {
               setFormdata({
                 ...formData,
@@ -83,11 +84,13 @@ const Loginscreen = ({ navigation }) => {
           />
           <TextInput
             placeholder="password"
-            selectionColor="red"
-            cursorColor="red"
+            selectionColor={primarycolor}
+            cursorColor={primarycolor}
             secureTextEntry={true}
             style={globalstyles.textInput}
             value={formData.password}
+            keyboardType="default"
+            keyboardAppearance="default"
             onChangeText={(password) => {
               setFormdata({
                 ...formData,
@@ -109,6 +112,14 @@ const Loginscreen = ({ navigation }) => {
           >
             <Text style={styles.forgotPassword}>forgot password?</Text>
           </TouchableNativeFeedback>
+
+          <TouchableNativeFeedback
+            onPress={() => Alert.alert("Alert", "forgot password")}
+          >
+            <Text style={[styles.forgotPassword, { color: primarycolor }]}>
+              Create Account
+            </Text>
+          </TouchableNativeFeedback>
         </View>
       </View>
     </DismissKeyboard>
@@ -122,7 +133,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: 500,
+  },
+  imageContainer: {
+    width: "100%",
+    maxWidth: "90%",
+    marginVertical: 30,
+    gap: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontWeight: "600",
+    fontSize: 32,
+    fontFamily: "Montserrat_600SemiBold",
   },
   textViewcontainer: {
     width: "100%",
@@ -132,21 +155,24 @@ const styles = StyleSheet.create({
   },
   signInbutton: {
     width: "100%",
-    maxWidth: "25%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "black",
+    backgroundColor: primarycolor,
+    height: Dimensions.get("window").height / 15,
   },
   forgotpasswordContainer: {
     width: "100%",
     maxWidth: "90%",
     padding: 5,
     marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   forgotPassword: {
     color: "black",
-    fontWeight: "600",
     fontSize: 18,
+    fontFamily: "Montserrat_600SemiBold",
+    letterSpacing: 0.25
   },
 });
 

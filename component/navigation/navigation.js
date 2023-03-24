@@ -62,7 +62,6 @@ export function AppNavigation() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        initialRouteName="Root"
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,
