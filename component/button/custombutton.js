@@ -6,7 +6,7 @@ import {
   TouchableNativeFeedback,
   View,
 } from "react-native";
-import { primarycolor } from "../../constants/constants";
+import { borderRadius, primarycolor } from "../../constants/constants";
 
 const { height, width } = Dimensions.get("window");
 export const CustomButton = ({ children, onPress, customStyle }) => {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: primarycolor,
     paddingHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: height / 70,
+    borderRadius: borderRadius,
     elevation: 5,
     shadowColor: "#000000",
     shadowOpacity: 0.25,
@@ -35,5 +35,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    letterSpacing: 0.25,
+    fontFamily: "Montserrat_600SemiBold",
   },
 });

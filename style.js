@@ -1,13 +1,17 @@
-import {Dimensions, StyleSheet} from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+import {
+  borderRadius,
+  primarycolor,
+  secondarycolor,
+} from "./constants/constants";
 
-const {height, width} = Dimensions.get("window")
+const { height, width } = Dimensions.get("window");
 export const globalstyles = StyleSheet.create({
-    textInput: {
-        backgroundColor: "white",
-        height: height / 16,
-        paddingLeft: 20,
-        borderRadius: height / 70,
-        borderColor: "black",
-        borderWidth: 1,
-    }
-})
+  textInput: {
+    backgroundColor: secondarycolor,
+    height: height / 15,
+    paddingLeft: 20,
+    borderRadius: borderRadius,
+    borderColor: primarycolor,
+  },
+});
