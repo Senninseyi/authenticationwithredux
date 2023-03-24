@@ -6,9 +6,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useReduxDevToolsExtension } from "@react-navigation/devtools";
 import { Ionicons } from "@expo/vector-icons";
-import * as SecureStore from "expo-secure-store";
 
 import { Homescreen } from "../../screen/Homescreen";
 import { Loginscreen } from "../../screen/Loginscreen";
